@@ -1,11 +1,31 @@
-﻿namespace QuizNet.Models.Entities
+﻿using System.Reflection;
+namespace QuizNet.Models.Entities
 {
-    public record class Choice
+    public readonly record struct ChoiceID(Guid Value);
+    public record struct ChoiceText(string Value);
+
+    public abstract class Choice
     {
-        public int Id { get; set; }
-        public required Question Question { get; set; }
-        public required string Text { get; set; }
-        public required bool IsCorrect { get; set; }
-        
+        public ChoiceID ID { get; } = new ChoiceID(Guid.NewGuid());
+        public required Question Question { get; init; }
+        public required ChoiceText Text { get; init; }
+
+        public abstract void Select();
+    }
+
+    public class CorrectChoice : Choice
+    {
+        public override void Select()
+        {
+            // Handle correct choice selection
+        }
+    }
+
+    public class IncorrectChoice : Choice
+    {
+        public override void Select()
+        {
+            // Handle incorrect choice selection
+        }
     }
 }
