@@ -21,6 +21,9 @@ namespace QuizNet.Models.Entities
             return GetEnumerator();
         }
         
+        public void AsReadOnly(Choice choice) {
+            ChoicesCollection.AsReadOnly();
+        }
     }
 
 
